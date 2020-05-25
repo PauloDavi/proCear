@@ -2,33 +2,31 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('projetos', {
+    return queryInterface.createTable('projects', {
       id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.UUID,
         primaryKey: true,
       },
-      titulo: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      descricao: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      data_finalizacao: {
+      date_finish: {
         type: Sequelize.DATE,
       },
-      creador: {
-        type: Sequelize.INTEGER,
+      creator: {
+        type: Sequelize.UUID,
         references: { model: 'usuarios', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: true,
       },
-      votos: {
+      votes: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false,
@@ -45,6 +43,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('projetos');
+    return queryInterface.dropTable('projects');
   },
 };

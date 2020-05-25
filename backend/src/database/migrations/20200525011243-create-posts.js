@@ -2,22 +2,20 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('posts', {
       id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.UUID,
         primaryKey: true,
       },
-      titulo: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      descricao: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      creador: {
-        type: Sequelize.INTEGER,
+      creator: {
+        type: Sequelize.UUID,
         references: { model: 'usuarios', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
