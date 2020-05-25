@@ -1,11 +1,11 @@
 import Sequelize, { Model } from 'sequelize';
 import { v4 } from 'uuid';
 
-class Projetos extends Model {
+class Projects extends Model {
   static init(sequelize) {
     super.init(
       {
-        titulo: {
+        title: {
           type: Sequelize.STRING,
           validate: {
             len: {
@@ -14,7 +14,7 @@ class Projetos extends Model {
             },
           },
         },
-        descricao: {
+        description: {
           type: Sequelize.STRING,
           validate: {
             len: {
@@ -23,8 +23,8 @@ class Projetos extends Model {
             },
           },
         },
-        data_finalizacao: Sequelize.DATE,
-        votos: Sequelize.INTERGER,
+        date_finish: Sequelize.DATE,
+        votes: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -35,6 +35,10 @@ class Projetos extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: 'creator' });
+  }
 }
 
-export default Projetos;
+export default Projects;

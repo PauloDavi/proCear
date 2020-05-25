@@ -5,7 +5,7 @@ class Posts extends Model {
   static init(sequelize) {
     super.init(
       {
-        titulo: {
+        title: {
           type: Sequelize.STRING,
           validate: {
             len: {
@@ -14,7 +14,7 @@ class Posts extends Model {
             },
           },
         },
-        descricao: {
+        description: {
           type: Sequelize.STRING(500),
           validate: {
             len: {
@@ -32,6 +32,10 @@ class Posts extends Model {
     this.addHook('beforeCreate', (user) => (user.id = v4()));
 
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: 'creator' });
   }
 }
 
