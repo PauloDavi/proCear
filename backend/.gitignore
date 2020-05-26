@@ -1,7 +1,5 @@
 node_modules
 
 .env
-.eslintrc.js
-.prettierrc
 
 yarn-error.log
