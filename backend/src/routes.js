@@ -9,7 +9,23 @@ import authMiddleware from './app/middlewares/auth';
 import adminMiddleware from './app/middlewares/admin';
 import uuidMiddleware from './app/middlewares/uuid';
 
+import Mail from './lib/Mail';
+
 const routes = new Router();
+
+routes.get('/test', async (req, res) => {
+  await Mail.sendMail({
+    to: 'Davi <paulo.araujo@cear.ufpb.br>',
+    subject: 'test',
+    template: 'cancellation',
+    context: {
+      provider: 'fulano',
+      user: 'sicrano',
+      date: 'hoje',
+    },
+  });
+  return res.json({ Ok: true });
+});
 
 routes.post('/users', UserController.store);
 
