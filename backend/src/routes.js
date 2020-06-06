@@ -4,6 +4,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import ProjectController from './app/controllers/ProjectController';
 import PostController from './app/controllers/PostController';
+import SuggestionController from './app/controllers/SuggestionController';
 
 import authMiddleware from './app/middlewares/auth';
 import adminMiddleware from './app/middlewares/admin';
@@ -37,6 +38,9 @@ routes.get('/projects', ProjectController.list);
 routes.get('/posts/:id', uuidMiddleware, PostController.index);
 routes.get('/posts', PostController.list);
 
+routes.get('/suggestions/:id', uuidMiddleware, SuggestionController.index);
+routes.get('/suggestions', SuggestionController.list);
+
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
@@ -68,5 +72,7 @@ routes.delete(
   adminMiddleware,
   PostController.delete
 );
+
+routes.post('/suggestions', SuggestionController.store);
 
 export default routes;
