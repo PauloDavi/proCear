@@ -69,7 +69,6 @@ class SuggestionController {
 
     const { description } = req.body;
 
-    console.log(req.UserId);
     try {
       const suggestion = await Suggestion.create({
         description,

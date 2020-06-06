@@ -6,7 +6,6 @@ module.exports = {
   extends: ['airbnb-base'],
   plugins: [
     'prettier',
-    'plugin:prettier/recommended',
     'eslint-plugin-import-helpers',
   ],
   globals: {
