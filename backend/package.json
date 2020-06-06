@@ -7,12 +7,6 @@
   "scripts": {
     "dev": "nodemon src/server.js"
   },
-  "husky": {
-    "hooks": {
-      "prepare-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
@@ -27,6 +21,12 @@
     "uuid": "^8.1.0",
     "validator": "^13.0.0",
     "yup": "^0.29.0"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "lint-staged": {
     "*.js": [
