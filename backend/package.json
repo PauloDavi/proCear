@@ -5,7 +5,8 @@
   "author": "Paulo Davi",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "commit": "npx git-cz"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -25,7 +26,6 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -55,7 +55,10 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./backend/node_modules/cz-conventional-changelog",
+      "maxLineWidth": 50,
+      "defaultType": "feat",
+      "defaultScope": "backend"
     }
   }
 }
