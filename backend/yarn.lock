@@ -1085,6 +1085,11 @@ eslint-scope@^5.0.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
+eslint-staged@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-staged/-/eslint-staged-1.0.1.tgz#f3b76a8ffc541c174e2be1af29d31fefbe544334"
+  integrity sha1-87dqj/xUHBdOK+GvKdMf775UQzQ=
+
 eslint-utils@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.4.3.tgz#74fec7c54d0776b6f67e0251040b5806564e981f"
