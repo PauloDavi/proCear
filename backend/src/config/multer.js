@@ -1,12 +1,12 @@
-import crypto from 'crypto';
 import multer from 'multer';
 import { resolve } from 'path';
+import { v4 } from 'uuid';
 
 export default {
   storage: multer.diskStorage({
     destination: resolve(__dirname, '..', '..', 'uploads'),
     filename(req, file, callback) {
-      const hash = crypto.randomBytes(8).toString('hex');
+      const hash = v4();
 
       const fileName = `${hash}-${file.originalname}`;
 

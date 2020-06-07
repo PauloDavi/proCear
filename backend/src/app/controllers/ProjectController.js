@@ -22,7 +22,7 @@ class ProjectController {
       include: [
         {
           model: User,
-          attributes: ['id', 'name', 'email', 'phone'],
+          attributes: ['id', 'name', 'email', 'phone', 'image', 'image_url'],
         },
       ],
     });
@@ -52,7 +52,7 @@ class ProjectController {
       include: [
         {
           model: User,
-          attributes: ['id', 'name', 'email', 'phone'],
+          attributes: ['id', 'name', 'email', 'phone', 'image', 'image_url'],
         },
       ],
     });
@@ -125,26 +125,11 @@ class ProjectController {
       deleteFile(project.image);
     }
 
-    const { title: newTitle, description, date_finish } = req.body;
+    const newProject = newImage ? { ...req.body, image: newImage } : req.body;
 
-    let newProject = {};
+    await project.update(newProject);
 
-    newImage
-      ? (newProject = {
-        title: newTitle,
-        description,
-        date_finish,
-        image: newImage,
-      })
-      : (newProject = {
-        title: newTitle,
-        description,
-        date_finish,
-      });
-
-    const projectUpdate = await project.update(newProject);
-
-    return res.json(projectUpdate);
+    return res.json({ message: 'Updated' });
   }
 
   async delete(req, res) {

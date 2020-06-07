@@ -10,7 +10,7 @@ class PostController {
       include: [
         {
           model: User,
-          attributes: ['id', 'name', 'email', 'phone'],
+          attributes: ['id', 'name', 'email', 'phone', 'image', 'image_url'],
         },
       ],
     });
@@ -32,7 +32,7 @@ class PostController {
       include: [
         {
           model: User,
-          attributes: ['id', 'name', 'email', 'phone'],
+          attributes: ['id', 'name', 'email', 'phone', 'image', 'image_url'],
         },
       ],
     });
