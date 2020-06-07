@@ -1,18 +1,20 @@
+/* eslint-disable comma-dangle */
 import { Router } from 'express';
+import multer from 'multer';
 
-import UserController from './app/controllers/UserController';
-import SessionController from './app/controllers/SessionController';
-import ProjectController from './app/controllers/ProjectController';
 import PostController from './app/controllers/PostController';
+import ProjectController from './app/controllers/ProjectController';
+import SessionController from './app/controllers/SessionController';
 import SuggestionController from './app/controllers/SuggestionController';
-
-import authMiddleware from './app/middlewares/auth';
+import UserController from './app/controllers/UserController';
 import adminMiddleware from './app/middlewares/admin';
+import authMiddleware from './app/middlewares/auth';
 import uuidMiddleware from './app/middlewares/uuid';
-
+import multerConfig from './config/multer';
 import Mail from './lib/Mail';
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
 routes.get('/test', async (req, res) => {
   await Mail.sendMail({
@@ -45,11 +47,17 @@ routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
 
-routes.post('/projects', adminMiddleware, ProjectController.store);
+routes.post(
+  '/projects',
+  adminMiddleware,
+  upload.single('image'),
+  ProjectController.store
+);
 routes.put(
   '/projects/:id',
   uuidMiddleware,
   adminMiddleware,
+  upload.single('image'),
   ProjectController.update
 );
 routes.delete(

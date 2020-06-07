@@ -1,4 +1,4 @@
-// Middleware que verifica se o usuario é um administrador
+// Middleware que verifica se o usuário é um administrador
 
 export default async (req, res, next) => {
   const admin = req.UserAdmin;

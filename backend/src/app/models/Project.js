@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-return-assign */
 import Sequelize, { Model } from 'sequelize';
 import { v4 } from 'uuid';
 
@@ -25,10 +27,17 @@ class Projects extends Model {
         },
         date_finish: Sequelize.DATE,
         votes: Sequelize.INTEGER,
+        image: Sequelize.STRING,
+        image_url: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            return this.image ? `${process.env.APP_URL}/uploads/${this.image}` : null;
+          },
+        },
       },
       {
         sequelize,
-      }
+      },
     );
 
     this.addHook('beforeCreate', (user) => (user.id = v4()));

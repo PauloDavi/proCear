@@ -1,5 +1,8 @@
 node_modules/
 
+uploads/*
+!uploads/.gitkeep
+
 .env
 
 yarn-error.log

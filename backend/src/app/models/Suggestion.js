@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-return-assign */
 import Sequelize, { Model } from 'sequelize';
 import { v4 } from 'uuid';
 
@@ -18,7 +20,7 @@ class Suggestion extends Model {
       },
       {
         sequelize,
-      }
+      },
     );
 
     // Função que seta o id como um UUID.v4

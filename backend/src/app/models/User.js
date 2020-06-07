@@ -1,5 +1,7 @@
-import Sequelize, { Model } from 'sequelize';
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-return-assign */
 import bcrypt from 'bcryptjs';
+import Sequelize, { Model } from 'sequelize';
 import { v4 } from 'uuid';
 
 class User extends Model {
@@ -45,10 +47,17 @@ class User extends Model {
         },
         password_hash: Sequelize.STRING,
         admin: Sequelize.BOOLEAN,
+        image: Sequelize.STRING,
+        image_url: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            return this.image ? `${process.env.APP_URL}/uploads/${this.image}` : 'https://api.adorable.io/avatars/50/abott@adorable.png';
+          },
+        },
       },
       {
         sequelize,
-      }
+      },
     );
 
     this.addHook('beforeCreate', (user) => (user.id = v4()));

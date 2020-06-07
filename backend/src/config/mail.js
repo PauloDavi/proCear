@@ -7,6 +7,6 @@ export default {
     pass: process.env.MAIL_PASS,
   },
   default: {
-    from: 'ProCear <paulodavizinho69@gmail.com>',
+    from: `ProCear <${process.env.MAIL_USER}>`,
   },
 };

@@ -17,7 +17,7 @@ export default async (req, res, next) => {
   try {
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
-    // Ao autenticar o usuario seta o parametro do id e se o usuario é um administrador
+    // Ao autenticar o usuário seta o parâmetro do id e se o usuário é um administrador
     req.UserId = decoded.id;
     req.UserAdmin = decoded.admin;
 

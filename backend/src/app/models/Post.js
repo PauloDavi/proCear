@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-return-assign */
 import Sequelize, { Model } from 'sequelize';
 import { v4 } from 'uuid';
 
@@ -23,10 +25,17 @@ class Posts extends Model {
             },
           },
         },
+        image: Sequelize.STRING,
+        image_url: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            return this.image ? `${process.env.APP_URL}/uploads/${this.image}` : null;
+          },
+        },
       },
       {
         sequelize,
-      }
+      },
     );
 
     this.addHook('beforeCreate', (user) => (user.id = v4()));

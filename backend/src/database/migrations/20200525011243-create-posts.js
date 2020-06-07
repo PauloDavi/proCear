@@ -1,6 +1,6 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('posts', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('posts', {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -13,6 +13,10 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       creator: {
         type: Sequelize.UUID,
@@ -29,10 +33,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-    });
-  },
+    }),
 
-  down: (queryInterface) => {
-    return queryInterface.dropTable('posts');
-  },
+  down: (queryInterface) => queryInterface.dropTable('posts'),
 };

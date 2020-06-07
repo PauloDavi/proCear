@@ -1,23 +1,19 @@
-'use strict';
-
+/* eslint-disable comma-dangle */
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert(
+  up: (queryInterface) =>
+    queryInterface.bulkInsert(
       'users',
       [
         {
           name: 'Fulano',
           email: 'exempla@gmail.com',
-          phone: 00000,
-          password_hash: 000000,
+          phone: 12,
+          password_hash: 12,
           admin: true,
         },
       ],
       {}
-    );
-  },
+    ),
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('users', null, {});
-  },
+  down: (queryInterface) => queryInterface.bulkDelete('users', null, {}),
 };

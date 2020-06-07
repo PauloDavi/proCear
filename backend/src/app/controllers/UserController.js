@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable prettier/prettier */
 import * as Yup from 'yup';
 
 import User from '../models/User';
@@ -20,17 +22,25 @@ class UserController {
 
     let userExists = await User.findOne({ where: { email: req.body.email } });
     if (userExists) {
-      return res.status(400).json({ error: 'User alredy exists.' });
+      return res.status(400).json({ error: 'User already exists.' });
     }
 
     userExists = await User.findOne({ where: { phone: req.body.phone } });
     if (userExists) {
-      return res.status(400).json({ error: 'Phone number alredy exists.' });
+      return res.status(400).json({ error: 'Phone number already exists.' });
     }
 
-    const { id, name, email, phone, admin } = await User.create(req.body);
+    const {
+      id, name, email, phone, admin,
+    } = await User.create(req.body);
 
-    return res.json({ id, name, email, phone, admin });
+    return res.json({
+      id,
+      name,
+      email,
+      phone,
+      admin,
+    });
   }
 
   async update(req, res) {
@@ -43,10 +53,10 @@ class UserController {
         .min(6)
         .max(30)
         .when('oldPassword', (oldPassword, field) =>
-          oldPassword ? field.required() : field
+          (oldPassword ? field.required() : field),
         ),
       confirmPassword: Yup.string().when('password', (password, field) =>
-        password ? field.required().oneOf([Yup.ref('password')]) : field
+        (password ? field.required().oneOf([Yup.ref('password')]) : field),
       ),
     });
 
@@ -62,7 +72,7 @@ class UserController {
       const emailExists = await User.findOne({ where: { email } });
 
       if (emailExists) {
-        return res.status(400).json({ error: 'User alredy exists.' });
+        return res.status(400).json({ error: 'User already exists.' });
       }
     }
 
@@ -70,7 +80,7 @@ class UserController {
       const phoneExists = await User.findOne({ where: { phone } });
 
       if (phoneExists) {
-        return res.status(400).json({ error: 'Phone number alredy exists.' });
+        return res.status(400).json({ error: 'Phone number already exists.' });
       }
     }
 
@@ -80,7 +90,13 @@ class UserController {
 
     const { id, name, admin } = await user.update(req.body);
 
-    return res.json({ id, name, email, phone, admin });
+    return res.json({
+      id,
+      name,
+      email,
+      phone,
+      admin,
+    });
   }
 }
 

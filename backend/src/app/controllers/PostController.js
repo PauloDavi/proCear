@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
-import User from '../models/User';
 import Post from '../models/Post';
+import User from '../models/User';
 
 class PostController {
   async index(req, res) {
@@ -21,6 +21,7 @@ class PostController {
 
     return res.json(post);
   }
+
   async list(req, res) {
     const { page = 1 } = req.query;
     const posts = await Post.findAll({
@@ -53,7 +54,7 @@ class PostController {
 
     const postExist = await Post.findOne({ where: { title } });
     if (postExist) {
-      return res.status(400).json({ error: 'Title alredy exist' });
+      return res.status(400).json({ error: 'Title already exist' });
     }
 
     const post = await Post.create({

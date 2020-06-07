@@ -1,12 +1,24 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-const-assign */
+/* eslint-disable no-unused-expressions */
 import * as Yup from 'yup';
 
-import User from '../models/User';
+import deleteFile from '../../utils/deleteFile';
 import Project from '../models/Project';
+import User from '../models/User';
 
 class ProjectController {
   async index(req, res) {
     const project = await Project.findByPk(req.params.id, {
-      attributes: ['id', 'title', 'description', 'date_finish', 'votes'],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'date_finish',
+        'votes',
+        'image',
+        'image_url',
+      ],
       include: [
         {
           model: User,
@@ -21,11 +33,20 @@ class ProjectController {
 
     return res.json(project);
   }
+
   async list(req, res) {
     const { page = 1 } = req.query;
     const projects = await Project.findAll({
       order: ['created_at'],
-      attributes: ['id', 'title', 'description', 'date_finish', 'votes'],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'date_finish',
+        'votes',
+        'image',
+        'image_url',
+      ],
       limit: 10,
       offset: (page - 1) * 10,
       include: [
@@ -40,6 +61,7 @@ class ProjectController {
   }
 
   async store(req, res) {
+    const image = req.file ? req.file.filename : null;
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       description: Yup.string().required(),
@@ -47,6 +69,7 @@ class ProjectController {
     });
 
     if (!(await schema.isValid(req.body))) {
+      deleteFile(image);
       return res.status(400).json({ error: 'Validation fails' });
     }
 
@@ -54,10 +77,11 @@ class ProjectController {
 
     const projectExist = await Project.findOne({ where: { title } });
     if (projectExist) {
-      return res.status(400).json({ error: 'Title alredy exist' });
+      deleteFile(image);
+      return res.status(400).json({ error: 'Title already exist' });
     }
-
     const project = await Project.create({
+      image,
       title,
       description,
       date_finish,
@@ -68,6 +92,7 @@ class ProjectController {
   }
 
   async update(req, res) {
+    const newImage = req.file ? req.file.filename : null;
     const schema = Yup.object().shape({
       title: Yup.string(),
       description: Yup.string(),
@@ -75,6 +100,7 @@ class ProjectController {
     });
 
     if (!(await schema.isValid(req.body))) {
+      deleteFile(newImage);
       return res.status(400).json({ error: 'Validation fails' });
     }
 
@@ -83,17 +109,40 @@ class ProjectController {
     const project = await Project.findByPk(req.params.id);
 
     if (!project) {
+      deleteFile(newImage);
       return res.status(400).json({ error: 'Project does not exist' });
     }
 
     if (project.title !== title) {
       const projectExist = await Project.findOne({ where: { title } });
       if (projectExist) {
-        return res.status(400).json({ error: 'Title alredy exist' });
+        deleteFile(newImage);
+        return res.status(400).json({ error: 'Title already exist' });
       }
     }
 
-    const projectUpdate = await project.update(req.body);
+    if (newImage) {
+      deleteFile(project.image);
+    }
+
+    const { title: newTitle, description, date_finish } = req.body;
+
+    let newProject = {};
+
+    newImage
+      ? (newProject = {
+        title: newTitle,
+        description,
+        date_finish,
+        image: newImage,
+      })
+      : (newProject = {
+        title: newTitle,
+        description,
+        date_finish,
+      });
+
+    const projectUpdate = await project.update(newProject);
 
     return res.json(projectUpdate);
   }
@@ -105,9 +154,12 @@ class ProjectController {
       return res.status(400).json({ error: 'Project does not exist' });
     }
 
+    const { image } = project;
+    deleteFile(image);
+
     await project.destroy();
 
-    return res.json({ mensage: 'Delete with success' });
+    return res.json({ message: 'Delete with success' });
   }
 }
 

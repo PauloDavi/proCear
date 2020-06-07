@@ -4,10 +4,7 @@ module.exports = {
     node: true,
   },
   extends: ['airbnb-base'],
-  plugins: [
-    'prettier',
-    'eslint-plugin-import-helpers',
-  ],
+  plugins: ['prettier', 'eslint-plugin-import-helpers'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -26,6 +23,7 @@ module.exports = {
       },
     ],
     'prettier/prettier': ['error'],
+    'eslint-disable-next-line': 'off',
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
     'implicit-arrow-linebreak': 'off',
