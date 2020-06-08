@@ -33,6 +33,15 @@ module.exports = {
         defaultValue: false,
         allowNull: false,
       },
+      authenticated: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
+      token: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

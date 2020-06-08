@@ -8,5 +8,6 @@ export default {
   },
   default: {
     from: `ProCear <${process.env.MAIL_USER}>`,
+    logo: `${process.env.WEB_URL}/assets/LogoCEAR.png`,
   },
 };

@@ -1,7 +1,9 @@
-import nodemailer from 'nodemailer';
-import { resolve } from 'path';
+/* eslint-disable prettier/prettier */
+/* eslint-disable object-curly-newline */
 import exphbs from 'express-handlebars';
+import nodemailer from 'nodemailer';
 import nodemailerhbs from 'nodemailer-express-handlebars';
+import { resolve } from 'path';
 
 import mailConfig from '../config/mail';
 
@@ -32,7 +34,7 @@ class Mail {
         }),
         viewPath,
         extName: '.hbs',
-      })
+      }),
     );
   }
 

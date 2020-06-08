@@ -23,6 +23,10 @@ class SessionController {
       return res.status(401).json({ error: 'User not found' });
     }
 
+    if (!user.authenticated) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ error: 'Password does not match' });
     }

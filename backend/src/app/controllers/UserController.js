@@ -2,6 +2,8 @@
 /* eslint-disable prettier/prettier */
 import * as Yup from 'yup';
 
+import Mail from '../../lib/Mail';
+import createToken from '../../utils/createToken';
 import deleteFile from '../../utils/deleteFile';
 import User from '../models/User';
 
@@ -74,6 +76,19 @@ class UserController {
     const {
       id, name, email, phone, admin,
     } = await User.create(req.body);
+
+    const link = await createToken(email, process.env.WEB_CONFIRMATION_EMAIL);
+
+    Mail.sendMail({
+      to: `${name} <${email}>`,
+      subject: 'ProCear - Confirmação de cadastro',
+      template: 'confirmation',
+      context: {
+        image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
+        link,
+        solicitation_type: 'confirmação de cadastro',
+      },
+    });
 
     return res.json({
       id,

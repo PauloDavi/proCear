@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 
+import ConfirmationController from './app/controllers/ConfirmationController';
 import PassRecoverController from './app/controllers/PassRecoverController';
 import PostController from './app/controllers/PostController';
 import ProjectController from './app/controllers/ProjectController';
@@ -15,7 +16,6 @@ import uuidMiddleware from './app/middlewares/uuid'; // middleware que verifica 
 import multerAvatars from './config/multerAvatars';
 import multerPosts from './config/multerPosts';
 import multerProjects from './config/multerProjects';
-import Mail from './lib/Mail';
 
 // Configuração de armazenamento de arquivos
 const uploadAvatars = multer(multerAvatars);
@@ -24,33 +24,8 @@ const uploadProjects = multer(multerProjects);
 
 const routes = new Router();
 
-routes.get('/test', async (req, res) => {
-  await Mail.sendMail({
-    to: 'Davi <paulo.araujo@cear.ufpb.br>',
-    subject: 'recuperação de senha nova denovoaxqxqxqax',
-    template: 'recoverPassword',
-    context: {
-      image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
-      link: 'http://cear.ufpb.br/',
-      solicitation_type: 'recuperação de senha',
-    },
-  });
-  return res.json({ Ok: true });
-});
-
-routes.get('/test2', async (req, res) => {
-  await Mail.sendMail({
-    to: 'Davi <paulo.araujo@cear.ufpb.br>',
-    subject: 'rec',
-    template: 'confirmation',
-    context: {
-      image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
-      link: 'http://www.cear.ufpb.br/pessoas/administracao',
-      solicitation_type: 'confirmação de cadastro',
-    },
-  });
-  return res.json({ Ok: true });
-});
+routes.get('/confirmation', ConfirmationController.index);
+routes.post('/confirmation', ConfirmationController.store);
 
 routes.post('/sessions', SessionController.store);
 

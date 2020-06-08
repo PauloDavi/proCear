@@ -47,6 +47,8 @@ class User extends Model {
         },
         password_hash: Sequelize.STRING,
         admin: Sequelize.BOOLEAN,
+        authenticated: Sequelize.BOOLEAN,
+        token: Sequelize.STRING,
         image: Sequelize.STRING,
         image_url: {
           type: Sequelize.VIRTUAL,
