@@ -1,7 +1,10 @@
 node_modules/
 
 uploads/*
+uploads/assets/*
 !uploads/.gitkeep
+!uploads/assets/
+!uploads/assets/.gitkeep
 
 .env
 

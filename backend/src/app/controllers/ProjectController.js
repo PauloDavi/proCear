@@ -69,7 +69,7 @@ class ProjectController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      deleteFile(image);
+      deleteFile(image, 'projects');
       return res.status(400).json({ error: 'Validation fails' });
     }
 
@@ -77,7 +77,7 @@ class ProjectController {
 
     const projectExist = await Project.findOne({ where: { title } });
     if (projectExist) {
-      deleteFile(image);
+      deleteFile(image, 'projects');
       return res.status(400).json({ error: 'Title already exist' });
     }
     const project = await Project.create({
@@ -100,7 +100,7 @@ class ProjectController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      deleteFile(newImage);
+      deleteFile(newImage, 'projects');
       return res.status(400).json({ error: 'Validation fails' });
     }
 
@@ -109,20 +109,20 @@ class ProjectController {
     const project = await Project.findByPk(req.params.id);
 
     if (!project) {
-      deleteFile(newImage);
+      deleteFile(newImage, 'projects');
       return res.status(400).json({ error: 'Project does not exist' });
     }
 
     if (project.title !== title) {
       const projectExist = await Project.findOne({ where: { title } });
       if (projectExist) {
-        deleteFile(newImage);
+        deleteFile(newImage, 'projects');
         return res.status(400).json({ error: 'Title already exist' });
       }
     }
 
     if (newImage) {
-      deleteFile(project.image);
+      deleteFile(project.image, 'projects');
     }
 
     const newProject = newImage ? { ...req.body, image: newImage } : req.body;
@@ -140,7 +140,7 @@ class ProjectController {
     }
 
     const { image } = project;
-    deleteFile(image);
+    deleteFile(image, 'projects');
 
     await project.destroy();
 

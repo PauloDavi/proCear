@@ -1,21 +1,24 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('suggestions', {
+    queryInterface.createTable('votes', {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
         primaryKey: true,
       },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      creator: {
+      user_id: {
         type: Sequelize.UUID,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: true,
+        allowNull: false,
+      },
+      project_id: {
+        type: Sequelize.UUID,
+        references: { model: 'projects', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -26,6 +29,5 @@ module.exports = {
         allowNull: false,
       },
     }),
-
-  down: (queryInterface) => queryInterface.dropTable('suggestions'),
+  down: (queryInterface) => queryInterface.dropTable('votes'),
 };

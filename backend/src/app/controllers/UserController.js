@@ -103,7 +103,7 @@ class UserController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      deleteFile(newImage);
+      deleteFile(newImage, 'avatars');
       return res.status(400).json({ error: 'Validation fails' });
     }
 
@@ -115,7 +115,7 @@ class UserController {
       const emailExists = await User.findOne({ where: { email } });
 
       if (emailExists) {
-        deleteFile(newImage);
+        deleteFile(newImage, 'avatars');
         return res.status(400).json({ error: 'User already exists.' });
       }
     }
@@ -124,18 +124,18 @@ class UserController {
       const phoneExists = await User.findOne({ where: { phone } });
 
       if (phoneExists) {
-        deleteFile(newImage);
+        deleteFile(newImage, 'avatars');
         return res.status(400).json({ error: 'Phone number already exists.' });
       }
     }
 
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
-      deleteFile(newImage);
+      deleteFile(newImage, 'avatars');
       return res.status(401).json({ error: 'Password does not match.' });
     }
 
     if (newImage) {
-      deleteFile(user.image);
+      deleteFile(user.image, 'avatars');
     }
 
     const newProject = newImage ? { ...req.body, image: newImage } : req.body;
@@ -153,7 +153,7 @@ class UserController {
     }
 
     const { image } = user;
-    deleteFile(image);
+    deleteFile(image, 'avatars');
 
     await user.destroy();
 

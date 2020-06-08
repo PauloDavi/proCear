@@ -21,8 +21,20 @@ class App {
     this.server.use(cors());
     this.server.use(express.json());
     this.server.use(
-      '/uploads',
-      express.static(resolve(__dirname, '..', 'uploads')),
+      '/assets',
+      express.static(resolve(__dirname, '..', 'uploads', 'assets')),
+    );
+    this.server.use(
+      '/uploads/avatars',
+      express.static(resolve(__dirname, '..', 'uploads', 'avatars')),
+    );
+    this.server.use(
+      '/uploads/posts',
+      express.static(resolve(__dirname, '..', 'uploads', 'posts')),
+    );
+    this.server.use(
+      '/uploads/projects',
+      express.static(resolve(__dirname, '..', 'uploads', 'projects')),
     );
   }
 

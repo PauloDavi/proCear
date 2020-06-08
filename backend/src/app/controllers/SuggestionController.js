@@ -1,12 +1,17 @@
 import * as Yup from 'yup';
 
+import Mail from '../../lib/Mail';
 import Suggestion from '../models/Suggestion';
 import User from '../models/User';
 
 class SuggestionController {
-  async index(req, res) {
-    const suggestion = await Suggestion.findByPk(req.params.id, {
+  async list(req, res) {
+    const { page = 1 } = req.query;
+    const posts = await Suggestion.findAll({
+      order: ['created_at'],
       attributes: ['id', 'description'],
+      limit: 10,
+      offset: (page - 1) * 10,
       include: [
         {
           model: User,
@@ -15,47 +20,7 @@ class SuggestionController {
       ],
     });
 
-    if (!suggestion) {
-      return res.status(400).json({ error: 'Suggestion does not exist' });
-    }
-
-    return res.json(suggestion);
-  }
-
-  async list(req, res) {
-    const { page = 1, user } = req.query;
-    if (!user) {
-      const suggestions = await Suggestion.findAll({
-        order: ['created_at'],
-        attributes: ['id', 'title', 'description'],
-        limit: 10,
-        offset: (page - 1) * 10,
-        include: [
-          {
-            model: User,
-            attributes: ['id', 'name', 'email', 'phone', 'image', 'image_url'],
-          },
-        ],
-      });
-
-      return res.json(suggestions);
-    }
-
-    const filterSuggestions = await Suggestion.findAll({
-      where: { creator: user },
-      order: ['created_at'],
-      attributes: ['id', 'title', 'description'],
-      limit: 10,
-      offset: (page - 1) * 10,
-      include: [
-        {
-          model: User,
-          attributes: ['id', 'name', 'email', 'phone'],
-        },
-      ],
-    });
-
-    return res.json(filterSuggestions);
+    return res.json(posts);
   }
 
   async store(req, res) {
@@ -69,16 +34,28 @@ class SuggestionController {
 
     const { description } = req.body;
 
-    try {
-      const suggestion = await Suggestion.create({
-        description,
-        creator: req.UserId,
-      });
+    const suggestion = await Suggestion.create({
+      description,
+      creator: req.UserId,
+    });
 
-      return res.json(suggestion);
-    } catch (err) {
-      return res.status(500).json(err);
-    }
+    const student = await User.findByPk(req.UserId, {
+      attributes: ['name'],
+    });
+
+    Mail.sendMail({
+      to: 'Davi <paulo.araujo@cear.ufpb.br>',
+      subject: 'Notificação de sugestão',
+      template: 'notification',
+      context: {
+        student: student.name,
+        suggests: description,
+        image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
+        solicitation_type: 'notificação de sugestão',
+      },
+    });
+
+    return res.json(suggestion);
   }
 }
 

@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 
+import deleteFile from '../../utils/deleteFile';
 import Post from '../models/Post';
 import User from '../models/User';
 
@@ -41,12 +42,14 @@ class PostController {
   }
 
   async store(req, res) {
+    const image = req.file ? req.file.filename : null;
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       description: Yup.string().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
+      deleteFile(image, 'post');
       return res.status(400).json({ error: 'Validation fails' });
     }
 
@@ -54,10 +57,11 @@ class PostController {
 
     const postExist = await Post.findOne({ where: { title } });
     if (postExist) {
+      deleteFile(image, 'post');
       return res.status(400).json({ error: 'Title already exist' });
     }
-
     const post = await Post.create({
+      image,
       title,
       description,
       creator: req.UserId,
@@ -67,11 +71,58 @@ class PostController {
   }
 
   async update(req, res) {
-    return res.json({ admin: req.UserAdmin });
+    const newImage = req.file ? req.file.filename : null;
+    const schema = Yup.object().shape({
+      title: Yup.string(),
+      description: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      deleteFile(newImage, 'post');
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const { title = '' } = req.body;
+
+    const post = await Post.findByPk(req.params.id);
+
+    if (!post) {
+      deleteFile(newImage, 'post');
+      return res.status(400).json({ error: 'Post does not exist' });
+    }
+
+    if (post.title !== title) {
+      const postExist = await Post.findOne({ where: { title } });
+      if (postExist) {
+        deleteFile(newImage, 'post');
+        return res.status(400).json({ error: 'Title already exist' });
+      }
+    }
+
+    if (newImage) {
+      deleteFile(post.image, 'post');
+    }
+
+    const newPost = newImage ? { ...req.body, image: newImage } : req.body;
+
+    await post.update(newPost);
+
+    return res.json({ message: 'Updated' });
   }
 
   async delete(req, res) {
-    return res.json();
+    const post = await Post.findByPk(req.params.id);
+
+    if (!post) {
+      return res.status(400).json({ error: 'Post does not exist' });
+    }
+
+    const { image } = post;
+    deleteFile(image, 'post');
+
+    await post.destroy();
+
+    return res.json({ message: 'Delete with success' });
   }
 }
 

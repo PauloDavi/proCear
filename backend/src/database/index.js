@@ -5,9 +5,10 @@ import Post from '../app/models/Post';
 import Project from '../app/models/Project';
 import Suggestion from '../app/models/Suggestion';
 import User from '../app/models/User';
+import Vote from '../app/models/Vote';
 import databaseConfig from '../config/database';
 
-const models = [User, Project, Post, Suggestion];
+const models = [User, Project, Post, Suggestion, Vote];
 
 class Database {
   constructor() {

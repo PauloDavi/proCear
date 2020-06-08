@@ -3,7 +3,7 @@
 import Sequelize, { Model } from 'sequelize';
 import { v4 } from 'uuid';
 
-class Projects extends Model {
+class Project extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -31,7 +31,7 @@ class Projects extends Model {
         image_url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return this.image ? `${process.env.APP_URL}/uploads/${this.image}` : null;
+            return this.image ? `${process.env.APP_URL}/uploads/projects/${this.image}` : null;
           },
         },
       },
@@ -50,4 +50,4 @@ class Projects extends Model {
   }
 }
 
-export default Projects;
+export default Project;

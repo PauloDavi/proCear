@@ -3,6 +3,7 @@ module.exports = {
     queryInterface.createTable('projects', {
       id: {
         type: Sequelize.UUID,
+        allowNull: false,
         primaryKey: true,
       },
       title: {

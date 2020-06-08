@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 export default {
   storage: multer.diskStorage({
-    destination: resolve(__dirname, '..', '..', 'uploads'),
+    destination: resolve(__dirname, '..', '..', 'uploads', 'posts'),
     filename(req, file, callback) {
       const hash = v4();
 
@@ -13,7 +13,7 @@ export default {
       callback(null, fileName);
     },
   }),
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter(req, file, cb) {
     if (file.mimetype.includes('image')) {
       cb(null, true);

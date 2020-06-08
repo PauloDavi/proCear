@@ -51,7 +51,7 @@ class User extends Model {
         image_url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return this.image ? `${process.env.APP_URL}/uploads/${this.image}` : 'https://api.adorable.io/avatars/50/abott@adorable.png';
+            return this.image ? `${process.env.APP_URL}/uploads/avatars/${this.image}` : 'https://api.adorable.io/avatars/50/abott@adorable.png';
           },
         },
       },

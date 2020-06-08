@@ -3,6 +3,7 @@ module.exports = {
     queryInterface.createTable('posts', {
       id: {
         type: Sequelize.UUID,
+        allowNull: false,
         primaryKey: true,
       },
       title: {
