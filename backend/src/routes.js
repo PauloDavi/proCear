@@ -1,5 +1,7 @@
 /* eslint-disable comma-dangle */
 import { Router } from 'express';
+import Brute from 'express-brute';
+import BruteRedis from 'express-brute-redis';
 import multer from 'multer';
 
 import ConfirmationController from './app/controllers/ConfirmationController';
@@ -17,17 +19,24 @@ import multerAvatars from './config/multerAvatars';
 import multerPosts from './config/multerPosts';
 import multerProjects from './config/multerProjects';
 
+const routes = new Router();
+
+const bruteStore = new BruteRedis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+});
+
+const bruteForce = new Brute(bruteStore);
+
 // Configuração de armazenamento de arquivos
 const uploadAvatars = multer(multerAvatars);
 const uploadPosts = multer(multerPosts);
 const uploadProjects = multer(multerProjects);
 
-const routes = new Router();
-
 routes.get('/confirmation', ConfirmationController.index);
 routes.post('/confirmation', ConfirmationController.store);
 
-routes.post('/sessions', SessionController.store);
+routes.post('/sessions', bruteForce.prevent, SessionController.store);
 
 routes.get('/passrecover', PassRecoverController.index);
 routes.post('/passrecover', PassRecoverController.store);

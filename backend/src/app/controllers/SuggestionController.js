@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
+import NotificationMail from '../jobs/NotificationMail';
 import Suggestion from '../models/Suggestion';
 import User from '../models/User';
 
@@ -43,16 +44,9 @@ class SuggestionController {
       attributes: ['name'],
     });
 
-    Mail.sendMail({
-      to: 'Davi <paulo.araujo@cear.ufpb.br>',
-      subject: 'Notificação de sugestão',
-      template: 'notification',
-      context: {
-        student: student.name,
-        suggests: description,
-        image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
-        solicitation_type: 'notificação de sugestão',
-      },
+    Queue.add(NotificationMail.key, {
+      nome: student.name,
+      description,
     });
 
     return res.json(suggestion);

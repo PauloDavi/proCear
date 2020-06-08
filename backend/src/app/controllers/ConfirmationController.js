@@ -4,8 +4,9 @@ import { promisify } from 'util';
 import * as Yup from 'yup';
 
 import authConfig from '../../config/auth';
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
 import createToken from '../../utils/createToken';
+import ConfirmationMail from '../jobs/ConfirmationMail';
 import User from '../models/User';
 
 class ConfirmationController {
@@ -65,15 +66,10 @@ class ConfirmationController {
       return res.status(400).json({ error: 'Email not registered' });
     }
 
-    Mail.sendMail({
-      to: `${user.name} <${email}>`,
-      subject: 'ProCear - Confirmação de cadastro',
-      template: 'confirmation',
-      context: {
-        image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
-        link,
-        solicitation_type: 'confirmação de cadastro',
-      },
+    await Queue.add(ConfirmationMail.key, {
+      name: user.name,
+      email,
+      link,
     });
 
     return res.json({ message: 'Confirmation email send for you' });
