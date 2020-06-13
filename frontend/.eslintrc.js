@@ -3,13 +3,7 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-    'prettier',
-    'prettier/react',
-    'eslint-plugin-import-helpers',
-  ],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -22,13 +16,25 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react', 'jsx-a11y', 'import', 'react-hooks', 'prettier'],
+  plugins: [
+    'react',
+    'jsx-a11y',
+    'import',
+    'react-hooks',
+    'prettier',
+    'import-helpers',
+  ],
   rules: {
     'import-helpers/order-imports': [
       'error',
       {
         newlinesBetween: 'always',
-        groups: ['module', ['parent', 'sibling', 'index']],
+        groups: [
+          '/^react/',
+          'module',
+          '/^~/',
+          [('parent', 'sibling', 'index')],
+        ],
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
