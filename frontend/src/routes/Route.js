@@ -5,20 +5,24 @@ import { Redirect, Route } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
+import { store } from '~/store';
+
 export default function RoterWrapper({
   component: Component,
   isPrivate,
   Admin,
   ...rest
 }) {
-  const signed = false;
-  const adminAccess = false;
+  const { signed } = store.getState().auth;
+  const { admin } = store.getState().user.profile
+    ? store.getState().user.profile
+    : false;
 
   if (!signed && isPrivate) {
     return <Redirect to="/login" />;
   }
 
-  if (!adminAccess && Admin) {
+  if (!admin && Admin) {
     return <Redirect to="/" />;
   }
 

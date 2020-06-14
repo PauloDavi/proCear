@@ -25,6 +25,7 @@ export const Content = styled.div`
       border: 0;
       border-radius: 8px;
       height: 44px;
+      box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
       padding: 0 15px;
       color: #fff;
       & + input {
@@ -46,16 +47,17 @@ export const Content = styled.div`
     button {
       margin: 20px 0 0;
       height: 44px;
-      background: #69b249;
+      background: #7fb800;
       font-weight: bold;
       color: #fff;
       border: 0;
+      box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       font-size: 16px;
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.06, '#69B249')};
+        background: ${darken(0.06, '#7fb800')};
       }
     }
 

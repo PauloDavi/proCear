@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Form, Input } from '@rocketseat/unform';
@@ -6,6 +7,7 @@ import * as Yup from 'yup';
 
 import logo from '~/assets/LogoCEAR.png';
 import InputMask from '~/components/InputMask';
+import { signUpRequest } from '~/store/modules/auth/actions';
 import { Container, Content } from '~/styles/signForms';
 
 const schema = Yup.object().shape({
@@ -26,13 +28,15 @@ const schema = Yup.object().shape({
 });
 
 function SingUp() {
-  async function handleSubmit(data) {
-    data.phone =
-      data.phone.substr(1, 2) +
-      data.phone.substr(5, 5) +
-      data.phone.substr(11, 4);
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
 
-    console.tron.log(data);
+  async function handleSubmit(data) {
+    const { name, email, password, confirmPassword } = data;
+    let { phone } = data;
+    phone = phone.substr(1, 2) + phone.substr(5, 5) + phone.substr(11, 4);
+
+    dispatch(signUpRequest(name, email, phone, password, confirmPassword));
   }
 
   return (
@@ -59,7 +63,9 @@ function SingUp() {
             placeholder="Confirme sua senha"
           />
 
-          <button type="submit">Criar conta</button>
+          <button type="submit">
+            {loading ? 'Carregando...' : 'Criar conta'}
+          </button>
           <Link to="/login">Já é cadastrado?</Link>
         </Form>
       </Content>
