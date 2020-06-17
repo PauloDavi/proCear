@@ -1,8 +1,9 @@
+import { lighten } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
-  background: linear-gradient(135deg, #203570, #91f9e5);
+  background: linear-gradient(135deg, #003f91, #78bed6);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,17 +18,28 @@ export const Container = styled.div`
     border-radius: 58px;
     height: 600px;
     width: 50%;
-
-    h1 {
-      color: #06a1e3;
-      text-shadow: 3px 3px #ddd;
-      margin-top: 30px;
-      font-weight: bold;
-      font-size: 4vw;
-    }
+    text-align: center;
 
     div {
-      height: 80%;
+      width: 20vw;
+      height: 20vw;
+      min-width: 200px;
+      min-height: 200px;
+    }
+
+    h1 {
+      margin-top: 20px;
+      padding: 10px 15px;
+      color: #06a1e3;
+      font-size: 32px;
+
+      a {
+        color: #3178b8;
+
+        &:hover {
+          color: ${lighten(0.15, '#3178b8')};
+        }
+      }
     }
   }
 `;

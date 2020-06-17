@@ -16,12 +16,9 @@ export function* signIn({ payload }) {
       password,
     });
 
-    if (response.data.error) {
-      toast.error(response.data.error);
-      return;
-    }
-
     const { token, user } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
 
@@ -56,7 +53,11 @@ export function* signUp({ payload }) {
       confirmPassword,
     });
 
+    toast.success('Conta criada com sucesso!!!');
+
     yield put(signUpSuccess());
+
+    history.push(`/enviodeemail/${email}`);
   } catch (error) {
     const signInError = error.response.data.error;
 
@@ -73,7 +74,23 @@ export function* signUp({ payload }) {
   }
 }
 
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export function signOut() {
+  history.push('/');
+}
+
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@auth/SIGN_OUT', signOut),
 ]);

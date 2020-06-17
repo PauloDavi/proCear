@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/ReactotronConfig';
 
+import Header from '~/components/Header';
 import Routes from '~/routes';
 import history from '~/services/history';
 import { store, persistor } from '~/store';
@@ -17,6 +18,7 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Router history={history}>
+          <Header />
           <Routes />
           <GlobalStyle />
           <ToastContainer autoClose={3000} />
