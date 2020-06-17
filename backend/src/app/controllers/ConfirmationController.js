@@ -40,7 +40,7 @@ class ConfirmationController {
 
       return res.json({ message: 'Your email is check' });
     } catch (err) {
-      return res.status(400).json(err);
+      return res.status(400).json({ err });
     }
   }
 

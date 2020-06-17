@@ -99,9 +99,8 @@ class UserController {
     const newImage = req.file ? req.file.filename : null;
     const schema = Yup.object().shape({
       name: Yup.string(),
-      email: Yup.string().email(),
       phone: Yup.string().length(11),
-      oldPassword: Yup.string().min(6).max(30),
+      oldPassword: Yup.string(),
       password: Yup.string()
         .min(6)
         .max(30)
@@ -118,18 +117,9 @@ class UserController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { email, phone, oldPassword } = req.body;
+    const { phone, oldPassword } = req.body;
 
     const user = await User.findByPk(req.UserId);
-
-    if (email !== undefined && email !== user.email) {
-      const emailExists = await User.findOne({ where: { email } });
-
-      if (emailExists) {
-        deleteFile(newImage, 'avatars');
-        return res.status(400).json({ error: 'User already exists.' });
-      }
-    }
 
     if (phone !== undefined && phone !== user.phone) {
       const phoneExists = await User.findOne({ where: { phone } });
@@ -150,13 +140,25 @@ class UserController {
     }
 
     const newProject = newImage ? { ...req.body, image: newImage } : req.body;
-
     await user.update(newProject);
 
-    return res.json({ message: 'Updated' });
+    const newUser = await User.findByPk(req.UserId, {
+      attributes: [
+        'id',
+        'name',
+        'email',
+        'phone',
+        'admin',
+        'image',
+        'image_url',
+      ],
+    });
+
+    return res.json(newUser);
   }
 
-  async delete(req, res) {
+  async delete(req,
+    res) {
     const user = await User.findByPk(req.UserId);
 
     if (!user) {

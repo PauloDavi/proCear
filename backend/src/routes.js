@@ -33,7 +33,7 @@ const uploadAvatars = multer(multerAvatars);
 const uploadPosts = multer(multerPosts);
 const uploadProjects = multer(multerProjects);
 
-routes.get('/confirmation', ConfirmationController.index);
+routes.put('/confirmation', ConfirmationController.index);
 routes.post('/confirmation', ConfirmationController.store);
 
 // routes.post('/sessions', bruteForce.prevent, SessionController.store);

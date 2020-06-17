@@ -69,17 +69,6 @@ class PassRecoverController {
       name: user.name, email, link,
     });
 
-    // Mail.sendMail({
-    //   to: `${user.name} <${email}>`,
-    //   subject: 'ProCear - Recuperação de senha',
-    //   template: 'recoverPassword',
-    //   context: {
-    //     image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
-    //     link,
-    //     solicitation_type: 'confirmação de cadastro',
-    //   },
-    // });
-
     return res.json({ message: 'Recover email send for you' });
   }
 }
