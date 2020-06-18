@@ -3,8 +3,6 @@ import { createGlobalStyle } from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
   * {
     margin: 0;
     padding: 0;
@@ -18,6 +16,22 @@ export default createGlobalStyle`
 
   html, body, #root {
     height: 100%
+  }
+
+  body::-webkit-scrollbar {
+    width: 12px;
+    background-color: rgba(245, 245, 245, 0.7);
+  }
+
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(245, 245, 245, 0.7);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(85, 85, 85, 0.7);
   }
 
   body {

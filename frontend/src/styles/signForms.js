@@ -2,7 +2,7 @@ import { darken } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100%;
+  min-height: 700px;
   background: linear-gradient(135deg, #06a1e3, #203570);
   display: flex;
   flex-direction: column;
