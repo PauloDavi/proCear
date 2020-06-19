@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   background: linear-gradient(135deg, #203570, #91f9e5);
-  height: 100%;
   display: flex;
   justify-content: center;
 `;
 
 export const Content = styled.div`
   width: 40%;
+  min-width: 400px;
   max-width: 600px;
   margin-top: 50px;
   align-items: center;
@@ -28,6 +28,7 @@ export const Content = styled.div`
       box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
       padding: 0 15px;
       color: #fff;
+
       & + input {
         margin: 10px 0 0;
       }

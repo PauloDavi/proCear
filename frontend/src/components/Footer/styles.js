@@ -36,7 +36,7 @@ export const Content = styled.div`
 `;
 
 export const Title = styled.div`
-  padding: 0 150px 0 30px;
+  margin: 0 10% 0 30px;
   max-width: 600px;
 
   h2 {
@@ -48,6 +48,18 @@ export const Title = styled.div`
   p {
     font-size: 16px;
     color: #fff;
+  }
+
+  @media screen and (max-width: 600px) {
+    margin: 0 20px 0 10px;
+
+    h2 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -76,6 +88,27 @@ export const Links = styled.div`
 
         &:hover {
           color: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0 0 0 10px;
+    min-width: 100px;
+
+    & + div {
+      margin-right: 10px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    ul {
+      li {
+        a {
+          font-size: 12px;
         }
       }
     }

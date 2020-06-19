@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
+import About from '~/pages/About';
 import Confirmation from '~/pages/Confirmation';
 import CreatePost from '~/pages/CreatePost';
 import CreateProject from '~/pages/CreateProject';
@@ -21,6 +22,7 @@ export default function Routes() {
       <Route path="/" exact component={Home} title="Home" />
       <Route path="/login" component={SingIn} title="Login" />
       <Route path="/cadastro" component={SingUp} title="Cadastro" />
+      <Route path="/sobre" component={About} title="Sobre nós" />
       <Route
         path="/emailconfirmation/:token"
         component={Confirmation}
@@ -52,7 +54,7 @@ export default function Routes() {
         component={CreatePost}
         title="Cadastro de posts"
       />
-      <Route path="/projeto" isPrivate component={Project} title="Projeto" />
+      <Route path="/projetos" isPrivate component={Project} title="Projeto" />
       <Route path="/404" component={NotFound} title="Não encontrado" />
       <Route path="*" component={() => <Redirect to="/404" />} />
     </Switch>

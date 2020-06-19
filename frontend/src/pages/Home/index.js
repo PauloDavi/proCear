@@ -19,11 +19,11 @@ function Home() {
       <ul>
         <Post>
           <button type="button">
-            <h2>title</h2>
+            <h2>Padaria</h2>
             <div>
               <img
                 src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.27ojYz7WMk5-GdiOb6V6jgHaE8%26pid%3DApi&f=1"
-                alt="title"
+                alt="Padaria"
               />
               <p>
                 esse poste é um teste e é muito legal esse poste é um teste e é
@@ -38,11 +38,11 @@ function Home() {
         </Post>
         <Post>
           <button type="button">
-            <h2>title</h2>
+            <h2>Reitoria</h2>
             <div>
               <img
                 src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.fYUTTA8bX_tlk9gm01fmxQHaEp%26pid%3DApi&f=1"
-                alt="title"
+                alt="Reitoria"
               />
               <p>
                 esse poste é um teste e é muito legal esse poste é um teste e é
@@ -54,11 +54,11 @@ function Home() {
         </Post>
         <Post>
           <button type="button">
-            <h2>title</h2>
+            <h2>Mapa</h2>
             <div>
               <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.fYUTTA8bX_tlk9gm01fmxQHaEp%26pid%3DApi&f=1"
-                alt="title"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.IsshG_p7aD0tM_BTlMW4SAHaFJ%26pid%3DApi&f=1"
+                alt="Mapa"
               />
               <p>
                 esse poste é um teste e é muito legal esse poste é um teste e é
@@ -71,10 +71,6 @@ function Home() {
           <button type="button">
             <h2>title</h2>
             <div>
-              <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.fYUTTA8bX_tlk9gm01fmxQHaEp%26pid%3DApi&f=1"
-                alt="title"
-              />
               <p>
                 esse poste é um teste e é muito legal esse poste é um teste e é
                 muito legal esse poste é um teste e é muito legal esse poste é

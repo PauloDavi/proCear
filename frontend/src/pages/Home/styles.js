@@ -37,6 +37,7 @@ export const Post = styled.li`
     h2 {
       font-size: 32px;
       color: #333;
+      margin-bottom: 5px;
     }
 
     div {
