@@ -1,9 +1,9 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 function Contact() {
-  return <div />;
+  return <Container>Contato</Container>;
 }
 
 export default Contact;

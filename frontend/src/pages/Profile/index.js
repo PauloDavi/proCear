@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Ring } from 'react-spinners-css';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -37,7 +38,7 @@ const schema = Yup.object().shape({
 function Profile() {
   const [selectedFile, setSelectedFile] = useState();
   const [imageUrl, setImageUrl] = useState();
-  const profile = useSelector((state) => state.user.profile);
+  const { profile, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   function handleSubmit(data) {
@@ -102,7 +103,9 @@ function Profile() {
             placeholder="Confirme a nova senha"
           />
 
-          <button type="submit">Atualizar perfil</button>
+          <button type="submit">
+            {loading ? <Ring color="#fff" size={32} /> : 'Atualizar perfil'}
+          </button>
         </Form>
 
         <button type="button" onClick={handleSignOut}>

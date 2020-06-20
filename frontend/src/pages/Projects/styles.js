@@ -13,7 +13,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Post = styled.li`
+export const Project = styled.li`
   background: #f5f5f5;
   border-radius: 8px;
   padding: 20px 15px;
@@ -33,6 +33,7 @@ export const Post = styled.li`
     flex-direction: column;
     background: transparent;
     border: 0;
+    margin: 0 auto;
 
     h2 {
       font-size: 32px;
@@ -40,7 +41,7 @@ export const Post = styled.li`
       margin-bottom: 5px;
     }
 
-    div {
+    > div {
       display: flex;
       flex-direction: column;
       max-width: 600px;
@@ -52,7 +53,7 @@ export const Post = styled.li`
         height: auto;
       }
 
-      p {
+      > p {
         display: -webkit-box;
         margin-top: 5px;
 
@@ -86,5 +87,17 @@ export const PageSelector = styled.div`
     color: #fff;
     font-size: 24px;
     margin: 0 15px 10px 15px;
+  }
+`;
+
+export const Infos = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  p {
+    font-size: 14px;
+    color: #333;
   }
 `;

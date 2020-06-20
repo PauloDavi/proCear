@@ -7,7 +7,7 @@ import User from '../models/User';
 class PostController {
   async index(req, res) {
     const post = await Post.findByPk(req.params.id, {
-      attributes: ['id', 'title', 'description'],
+      attributes: ['id', 'title', 'description', 'image', 'image_url'],
       include: [
         {
           model: User,
@@ -25,9 +25,9 @@ class PostController {
 
   async list(req, res) {
     const { page = 1 } = req.query;
-    const posts = await Post.findAll({
+    const posts = await Post.findAndCountAll({
       order: ['created_at'],
-      attributes: ['id', 'title', 'description'],
+      attributes: ['id', 'title', 'description', 'image', 'image_url'],
       limit: 10,
       offset: (page - 1) * 10,
       include: [

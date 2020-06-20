@@ -36,7 +36,7 @@ class ProjectController {
 
   async list(req, res) {
     const { page = 1 } = req.query;
-    const projects = await Project.findAll({
+    const projects = await Project.findAndCountAll({
       order: ['created_at'],
       attributes: [
         'id',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Ring } from 'react-spinners-css';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -26,11 +27,16 @@ function SingIn() {
     <Container>
       <Content>
         <img src={logo} alt="ProCear" />
+
+        <h1>Login</h1>
+
         <Form onSubmit={handleSubmit} schema={schema}>
           <Input name="email" type="email" placeholder="Email" />
           <Input name="password" type="password" placeholder="Senha" />
 
-          <button type="submit">{loading ? 'Carregando...' : 'Acessar'}</button>
+          <button type="submit">
+            {loading ? <Ring color="#fff" size={32} /> : 'Acessar'}
+          </button>
           <Link to="/cadastro">Criar conta gratuita</Link>
         </Form>
       </Content>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Ring } from 'react-spinners-css';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -44,6 +45,8 @@ function SingUp() {
       <Content>
         <img src={logo} alt="ProCear" />
 
+        <h1>Cadastro</h1>
+
         <Form onSubmit={handleSubmit} schema={schema}>
           <Input name="name" type="text" placeholder="Nome completo" />
           <Input name="email" type="email" placeholder="Email" />
@@ -64,7 +67,7 @@ function SingUp() {
           />
 
           <button type="submit">
-            {loading ? 'Carregando...' : 'Criar conta'}
+            {loading ? <Ring color="#fff" size={32} /> : 'Criar conta'}
           </button>
           <Link to="/login">Já é cadastrado?</Link>
         </Form>

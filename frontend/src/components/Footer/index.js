@@ -8,7 +8,9 @@ import { unsignedHeader, signedHeader, adminHeader } from '~/assets/links';
 import { Container, Content, Title, Links, Company } from './styles';
 
 const FooterPage = () => {
-  const { admin } = useSelector((state) => state.user.profile);
+  const { admin } = useSelector((state) =>
+    state.user.profile ? state.user.profile : false
+  );
   const { signed } = useSelector((state) => state.auth);
 
   return (
@@ -28,24 +30,18 @@ const FooterPage = () => {
             {signed
               ? admin
                 ? adminHeader.map((link) => (
-                    <li>
-                      <Link key={link.name} to={link.route}>
-                        {link.name}
-                      </Link>
+                    <li key={link.name}>
+                      <Link to={link.route}>{link.name}</Link>
                     </li>
                   ))
                 : signedHeader.map((link) => (
-                    <li>
-                      <Link key={link.name} to={link.route}>
-                        {link.name}
-                      </Link>
+                    <li key={link.name}>
+                      <Link to={link.route}>{link.name}</Link>
                     </li>
                   ))
               : unsignedHeader.map((link) => (
-                  <li>
-                    <Link key={link.name} to={link.route}>
-                      {link.name}
-                    </Link>
+                  <li key={link.name}>
+                    <Link to={link.route}>{link.name}</Link>
                   </li>
                 ))}
           </ul>

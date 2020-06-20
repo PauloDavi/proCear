@@ -2,29 +2,32 @@ import { darken } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  min-height: 700px;
-  background: linear-gradient(135deg, #06a1e3, #203570);
+  background: linear-gradient(135deg, #203570, #91f9e5);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-self: center;
+  flex-direction: column;
+
+  h1 {
+    color: #ffb400;
+    margin-top: 20px;
+    font-size: 32px;
+  }
 `;
 
 export const Content = styled.div`
   width: 40%;
   min-width: 400px;
-  max-width: 450px;
-  text-align: center;
-
-  h1 {
-    color: #ffb400;
-    font-size: 32px;
-  }
+  max-width: 600px;
+  margin: 10px 0;
+  align-items: center;
+  justify-content: center;
 
   form {
     display: flex;
     flex-direction: column;
-    margin: 10px 30px 30px 30px;
+    margin: 15px 30px;
 
     input {
       background: rgba(0, 0, 0, 0.5);
@@ -34,12 +37,25 @@ export const Content = styled.div`
       box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
       padding: 0 15px;
       color: #fff;
-      & + input {
-        margin: 10px 0 0;
-      }
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    textarea {
+      background: rgba(0, 0, 0, 0.5);
+      border: 0;
+      border-radius: 8px;
+      height: 150px;
+      box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px 15px;
+      color: #fff;
+      margin-top: 10px;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 16px;
       }
     }
 
@@ -51,7 +67,7 @@ export const Content = styled.div`
     }
 
     button {
-      margin: 20px 0 0;
+      margin-top: 30px;
       height: 44px;
       background: #7fb800;
       font-weight: bold;
@@ -64,18 +80,6 @@ export const Content = styled.div`
 
       &:hover {
         background: ${darken(0.06, '#7fb800')};
-      }
-    }
-
-    a {
-      color: #fff;
-      margin-top: 15px;
-      font-size: 16px;
-      opacity: 0.8;
-      transition: opacity 0.1s;
-
-      &:hover {
-        opacity: 1;
       }
     }
   }

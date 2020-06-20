@@ -2,21 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
+
 import api from '~/services/api';
 
-import { Container, Post, PageSelector } from './styles';
+import { Container, Project, PageSelector, Infos } from './styles';
 
-function Home() {
+function Projects() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [posts, setPosts] = useState(null);
+  const [projects, setProjects] = useState(null);
 
   useEffect(() => {
     async function loadPosts() {
       try {
-        const response = await api.get('/posts', { params: { page } });
+        const response = await api.get('/projects', { params: { page } });
         setTotalPages(response.data.count);
-        setPosts(response.data.rows);
+        setProjects(response.data.rows);
       } catch (error) {
         toast.error('Error ao carregar posts');
       }
@@ -36,17 +39,27 @@ function Home() {
   return (
     <Container>
       <ul>
-        {posts &&
-          posts.map((post) => (
-            <Post key={post.id}>
+        {projects &&
+          projects.map((project) => (
+            <Project key={project.id}>
               <button type="button">
-                <h2>{post.title}</h2>
+                <h2>{project.title}</h2>
                 <div>
-                  <img src={post.image_url} alt={post.title} />
-                  <p>{post.description}</p>
+                  <img src={project.image_url} alt={project.title} />
+                  <p>{project.description}</p>
+                  <Infos>
+                    <p>{project.votes} votos</p>
+                    <p>
+                      Finaliza{' '}
+                      {formatDistanceToNow(parseISO(project.date_finish), {
+                        addSuffix: true,
+                        locale: pt,
+                      })}
+                    </p>
+                  </Infos>
                 </div>
               </button>
-            </Post>
+            </Project>
           ))}
       </ul>
 
@@ -67,4 +80,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Projects;

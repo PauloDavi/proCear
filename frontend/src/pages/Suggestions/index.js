@@ -1,9 +1,9 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 function Suggestions() {
-  return <div />;
+  return <Container>Sugestões</Container>;
 }
 
 export default Suggestions;

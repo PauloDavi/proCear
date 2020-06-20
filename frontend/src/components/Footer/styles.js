@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 5px 5px;
+  box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.3);
 `;
 
 export const Company = styled.div`

@@ -11,6 +11,7 @@ export default function RoterWrapper({
   component: Component,
   isPrivate,
   Admin,
+  noSigned,
   title,
   ...rest
 }) {
@@ -27,6 +28,10 @@ export default function RoterWrapper({
     return <Redirect to="/login" />;
   }
 
+  if (signed && noSigned) {
+    return <Redirect to="/" />;
+  }
+
   if (!admin && Admin) {
     return <Redirect to="/" />;
   }
@@ -37,6 +42,7 @@ export default function RoterWrapper({
 RoterWrapper.propTypes = {
   isPrivate: PropTypes.bool,
   Admin: PropTypes.bool,
+  noSigned: PropTypes.bool,
   title: PropTypes.string,
   component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
     .isRequired,
@@ -45,5 +51,6 @@ RoterWrapper.propTypes = {
 RoterWrapper.defaultProps = {
   title: 'ProCear',
   isPrivate: false,
+  noSigned: false,
   Admin: false,
 };

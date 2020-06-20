@@ -1,9 +1,9 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 function About() {
-  return <h1>Sobre nos</h1>;
+  return <Container>Sobre nos</Container>;
 }
 
 export default About;

@@ -8,7 +8,7 @@ import CreateProject from '~/pages/CreateProject';
 import Home from '~/pages/Home';
 import NotFound from '~/pages/NotFound';
 import Profile from '~/pages/Profile';
-import Project from '~/pages/Project';
+import Projects from '~/pages/Projects';
 import SendEmailConfirmation from '~/pages/SendEmailConfirmation';
 import SingIn from '~/pages/SingIn';
 import SingUp from '~/pages/SingUp';
@@ -20,8 +20,8 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} title="Home" />
-      <Route path="/login" component={SingIn} title="Login" />
-      <Route path="/cadastro" component={SingUp} title="Cadastro" />
+      <Route path="/login" noSigned component={SingIn} title="Login" />
+      <Route path="/cadastro" noSigned component={SingUp} title="Cadastro" />
       <Route path="/sobre" component={About} title="Sobre nós" />
       <Route
         path="/emailconfirmation/:token"
@@ -54,7 +54,7 @@ export default function Routes() {
         component={CreatePost}
         title="Cadastro de posts"
       />
-      <Route path="/projetos" isPrivate component={Project} title="Projeto" />
+      <Route path="/projetos" isPrivate component={Projects} title="Projeto" />
       <Route path="/404" component={NotFound} title="Não encontrado" />
       <Route path="*" component={() => <Redirect to="/404" />} />
     </Switch>
