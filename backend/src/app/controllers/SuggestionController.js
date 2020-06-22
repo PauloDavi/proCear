@@ -1,5 +1,8 @@
+import jwt from 'jsonwebtoken';
+import { promisify } from 'util';
 import * as Yup from 'yup';
 
+import authConfig from '../../config/auth';
 import Queue from '../../lib/Queue';
 import NotificationMail from '../jobs/NotificationMail';
 import Suggestion from '../models/Suggestion';
@@ -25,7 +28,24 @@ class SuggestionController {
   }
 
   async store(req, res) {
+    const authHeader = req.headers.authorization;
+    let userId = null;
+
+    if (authHeader) {
+      const [, token] = authHeader.split(' ');
+
+      try {
+        const decoded = await promisify(jwt.verify)(token, authConfig.secret);
+
+        // Ao autenticar o usuário seta o parâmetro do id
+        userId = decoded.id;
+      } catch (err) {
+        userId = null;
+      }
+    }
+
     const schema = Yup.object().shape({
+      subject: Yup.string().required(),
       description: Yup.string().required(),
     });
 
@@ -33,19 +53,28 @@ class SuggestionController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { description } = req.body;
+    const { description, subject } = req.body;
 
     const suggestion = await Suggestion.create({
       description,
-      creator: req.UserId,
+      subject,
+      creator: userId,
     });
 
-    const student = await User.findByPk(req.UserId, {
-      attributes: ['name'],
-    });
+    if (userId) {
+      const user = await User.findByPk(userId, {
+        attributes: ['name'],
+      });
+
+      Queue.add(NotificationMail.key, {
+        name: user.name,
+        description,
+      });
+
+      return res.json(suggestion);
+    }
 
     Queue.add(NotificationMail.key, {
-      nome: student.name,
       description,
     });
 

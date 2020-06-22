@@ -17,8 +17,8 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 40%;
-  min-width: 400px;
+  width: calc(250px + 40%);
+  min-width: 300px;
   max-width: 600px;
   margin: 10px 0;
   align-items: center;
@@ -29,6 +29,7 @@ export const Content = styled.div`
     flex-direction: column;
     margin: 15px 30px;
 
+    textarea,
     input {
       background: rgba(0, 0, 0, 0.5);
       border: 0;
@@ -48,17 +49,11 @@ export const Content = styled.div`
     }
 
     textarea {
-      background: rgba(0, 0, 0, 0.5);
-      border: 0;
-      border-radius: 8px;
       height: 150px;
-      box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
       padding: 10px 15px;
-      color: #fff;
       margin-top: 10px;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
         font-size: 16px;
       }
     }

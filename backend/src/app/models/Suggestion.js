@@ -8,6 +8,9 @@ class Suggestion extends Model {
     // Campos no banco que tenho acesso direto
     super.init(
       {
+        subject: {
+          type: Sequelize.STRING(32),
+        },
         description: {
           type: Sequelize.STRING(500),
           validate: {

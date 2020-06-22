@@ -7,16 +7,16 @@ module.exports = {
         primaryKey: true,
       },
       title: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(32)',
         allowNull: false,
         unique: true,
       },
       description: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(1000)',
         allowNull: false,
       },
       image: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(127)',
         allowNull: true,
       },
       creator: {

@@ -38,5 +38,9 @@ export const Container = styled.div`
     color: #7fb800;
     font-size: 14px;
     font-weight: bold;
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
   }
 `;

@@ -6,8 +6,12 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
+      subject: {
+        type: 'VARCHAR(32)',
+        allowNull: false,
+      },
       description: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(1000)',
         allowNull: false,
       },
       creator: {

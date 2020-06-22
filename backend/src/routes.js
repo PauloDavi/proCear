@@ -56,6 +56,7 @@ routes.get('/posts/:id', uuidMiddleware, PostController.index);
 routes.get('/posts', PostController.list);
 
 routes.get('/suggestions', SuggestionController.list);
+routes.post('/suggestions', SuggestionController.store);
 
 // Apartir daqui todas as rotas precisão que o usurário esteja autenticado
 routes.use(authMiddleware);
@@ -105,7 +106,5 @@ routes.delete(
 
 routes.post('/votes/:project_id', VoteController.store);
 routes.delete('/votes/:id', uuidMiddleware, VoteController.delete);
-
-routes.post('/suggestions', SuggestionController.store);
 
 export default routes;

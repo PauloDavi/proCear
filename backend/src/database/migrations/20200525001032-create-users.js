@@ -7,20 +7,20 @@ module.exports = {
         primaryKey: true,
       },
       name: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(127)',
         allowNull: false,
       },
       email: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(127)',
         allowNull: false,
         unique: true,
       },
       image: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(127)',
         allowNull: true,
       },
       phone: {
-        type: Sequelize.STRING,
+        type: 'VARCHAR(11)',
         allowNull: false,
         unique: true,
       },

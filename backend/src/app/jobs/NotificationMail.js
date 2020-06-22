@@ -13,8 +13,8 @@ class NotificationMail {
       subject: 'Notificação de sugestão',
       template: 'notification',
       context: {
-        student: name,
-        suggests: description,
+        name,
+        description,
         image: `${process.env.APP_URL}/assets/LogoCEAR.png`,
         solicitation_type: 'notificação de sugestão',
       },

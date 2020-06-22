@@ -5,11 +5,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-height: 100%;
 
   ul {
     display: flex;
     flex-direction: column;
-    margin: 15px 0;
+    margin: 15px 10px;
   }
 `;
 
@@ -33,6 +35,7 @@ export const Project = styled.li`
     flex-direction: column;
     background: transparent;
     border: 0;
+    max-width: 600px;
     margin: 0 auto;
 
     h2 {
@@ -44,13 +47,14 @@ export const Project = styled.li`
     > div {
       display: flex;
       flex-direction: column;
-      max-width: 600px;
+      width: 100%;
 
       img {
         background: #aaa;
-        border-radius: 4px;
-        max-width: 100%;
+        border-radius: 8px;
+        width: 100%;
         height: auto;
+        object-fit: cover;
       }
 
       > p {
@@ -73,26 +77,8 @@ export const Project = styled.li`
   }
 `;
 
-export const PageSelector = styled.div`
-  display: flex;
-  align-self: center;
-  align-items: center;
-
-  button {
-    background: none;
-    border: 0;
-  }
-
-  strong {
-    color: #fff;
-    font-size: 24px;
-    margin: 0 15px 10px 15px;
-  }
-`;
-
 export const Infos = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
 

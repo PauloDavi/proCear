@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   background: #fefefe;
   padding: 5px 30px 5px 20px;
+  height: auto;
 
   @media screen and (max-width: 600px) {
     padding: 0 15px 0 5px;
@@ -16,8 +17,8 @@ export const Content = styled.div`
   align-items: center;
 
   @media screen and (max-width: 600px) {
-    height: auto;
-    align-items: flex-start;
+    /* height: auto; */
+    /* align-items: flex-start; */
   }
 
   nav {
@@ -32,6 +33,7 @@ export const Content = styled.div`
     }
 
     a {
+      display: block;
       text-transform: uppercase;
       font-weight: bold;
       color: #06a1e3;
@@ -47,19 +49,18 @@ export const Content = styled.div`
     }
 
     @media screen and (max-width: 600px) {
-      flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: center;
 
       img {
-        margin-top: 5px;
-        border-right: none;
+        display: none;
       }
 
       a {
-        margin: 5px 0 5px 5px;
+        font-size: 12px;
 
         & + a {
-          margin-left: 5px;
+          margin-left: 10px;
         }
       }
     }
@@ -74,7 +75,14 @@ export const Content = styled.div`
     margin-left: 5px;
 
     @media screen and (max-width: 600px) {
-      margin-top: 10px;
+      min-height: 0;
+      margin-left: 0;
+      padding-left: 10px;
+      margin: 10px 0 10px 5px;
+
+      a {
+        font-size: 12px;
+      }
     }
 
     a {
@@ -118,6 +126,7 @@ export const Profile = styled.div`
 
   @media screen and (max-width: 800px) and (min-width: 600px) {
     flex-direction: column-reverse;
+    margin: 0;
 
     div {
       text-align: center;
@@ -125,10 +134,28 @@ export const Profile = styled.div`
       strong {
         display: none;
       }
+
+      a {
+        font-size: 10px;
+      }
     }
 
     img {
-      margin: 5px auto 0 auto;
+      height: 32px;
+      width: 32px;
+      margin: 5px auto 5px auto;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    div {
+      display: none;
+    }
+
+    img {
+      height: 24px;
+      width: 24px;
+      margin: 0 auto;
     }
   }
 `;
